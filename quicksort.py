@@ -1,4 +1,8 @@
 def quicksort(array, start, end):
+    """
+    param start: start position of the subarray 
+    param end: end position of the subarray
+    """
     if start >= end:
         return
 
@@ -20,6 +24,9 @@ def partition(array, start, end):
     array[i + 1], array[end] = array[end], array[i + 1]
     return i + 1
 
-data = [5, 4, 1, 7, 0, 2, 3, 8]
-quicksort(data, 0, len(data) - 1)
-print(data)
+
+if __name__ == "__main__":
+
+    data = [5, 4, 1, 7, 0, 2, 3, 8]
+    quicksort(data, 0, len(data) - 1)
+    print(data)
