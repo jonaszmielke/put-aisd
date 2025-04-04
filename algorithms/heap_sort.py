@@ -1,4 +1,4 @@
-def heapify(array, n, i):
+def heapify(array:list, n:int, i:int):
     """
     Restores the heap property in the subtree with root index i.
     
@@ -24,7 +24,7 @@ def heapify(array, n, i):
         heapify(array, n, largest)
 
 
-def heap_sort(array):
+def heap_sort(array:list):
     
     n = len(array)
 

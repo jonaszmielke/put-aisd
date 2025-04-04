@@ -1,4 +1,4 @@
-def quicksort(array, start, end):
+def quicksort(array:list, start:int, end:int):
     """
     param start: start position of the subarray 
     param end: end position of the subarray
@@ -11,7 +11,7 @@ def quicksort(array, start, end):
     quicksort(array, start, pivot_index - 1)
     quicksort(array, pivot_index + 1, end)
 
-def partition(array, start, end):
+def partition(array:list, start:int, end:int):
     pivot = array[end]
     i = start - 1
 
