@@ -56,7 +56,7 @@ def write_dataset(data, dataset_type, count_str):
 
 
 
-def main():
+def generate_datasets(selected, count_str):
 
     generators = {
         "random": generate_random,
@@ -66,17 +66,7 @@ def main():
         "v-shaped": generate_v_shaped,
         "a-shaped": generate_a_shaped,
     }
-
-    print("Select the type of dataset to generate:\nAvailable types:")
-    i = 1
-    for ds_type in generators.keys():
-        print(f"{i}) {ds_type}")
-        i += 1
-
-    print(f"{i}) all\n")
-
-    selected = input('Provide a name or a number: ')
-    count_str = input("Enter the number of elements (e.g., 10m, 100k, or 500): ").strip()
+    
     try:
         n = parse_count(count_str)
     except ValueError:
@@ -84,18 +74,14 @@ def main():
         return
 
 
-    if selected.lower() == 'all' or selected == f"{i}":
+    if selected.lower() == 'all':
 
         for ds_type, gen_func in generators.items():
             print(f"Generating {ds_type} dataset with {n} elements...")
             data = gen_func(n)
             write_dataset(data, ds_type, count_str)
 
-
-    elif selected in generators.keys() or (selected.isdigit() and int(selected) < i):
-
-        if selected.isdigit():
-            selected = list(generators.keys())[int(selected)-1]
+    elif selected in generators.keys():
 
         print(f"Generating {selected} dataset with {n} elements...")
         data = generators[selected](n)
@@ -103,6 +89,36 @@ def main():
 
     else:
         print('An incorrect option was selected')
+
+
+
+
+def main():
+
+    generators = ["random", "ascending", "descending", "fixed", "v-shaped", "a-shaped"]
+
+    print("Select the type of dataset to generate:\nAvailable types:")
+    i = 1
+    for ds_type in generators:
+        print(f"{i}) {ds_type}")
+        i += 1
+    print(f"{i}) all\n")
+
+    selected = input('Provide a name or a number: ')
+    count_str = input("Enter the number of elements (e.g., 10m, 100k, or 500): ").strip()
+
+    if selected.isdigit():
+
+        if selected == i:
+            selected = 'all'
+
+        elif int(selected) < i:
+            print('An incorrect option was selected')
+            return
+        
+        selected = generators[int(selected)-1]
+
+    generate_datasets(selected, count_str)
 
 
 if __name__ == "__main__":
