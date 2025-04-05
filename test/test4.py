@@ -5,10 +5,11 @@ import time
 
 from save_results import save_results
 
-#fast algoriths
-from algorithms.quicksort.quicksort_right import quicksort_right as quicksort
-from algorithms.heap_sort import heap_sort
-from algorithms.merge_sort import merge_sort
+#quicksort algorithms
+from algorithms.quicksort.quicksort_right import quicksort_right
+from algorithms.quicksort.quicksort_middle import quicksort_middle
+from algorithms.quicksort.quicksort_random import quicksort_random
+
 
 
 def read_dataset(filepath):
@@ -34,42 +35,40 @@ def measure_time(function:function, numbers:list):
 
 def main():
 
-    fast = {
-        'quicksort': quicksort,
-        'heap_sort': heap_sort,
-        'merge_sort': merge_sort
+    algorithms = {
+        'right': quicksort_right,
+        'middle': quicksort_middle,
+        'random': quicksort_random
     }
 
     results = {
-        'quicksort': {},
-        'heap_sort': {},
-        'merge_sort': {}
+        'right': {},
+        'middle': {},
+        'random': {}
     }
 
     i = 1
-    datasets = list(range(1, 16)) #CHANGE THE NUMBERS !!!!!!!!!
+    datasets = ['1m']
     test_start = time.perf_counter()
 
-    #amount of thousands numbers in dataset
-    for amount in datasets:
+    for algorithm_name, algorithm in algorithms:
 
-        numbers = read_dataset(f'datasets/random/{amount}.txt')
+        for amount in datasets:
 
-        for algorithm_name, algorithm in fast:
-
-            print(f'({i}/{(len(datasets)*len(fast))}) Sorting {amount} numbers using {algorithm_name}')
+            numbers = read_dataset(f'datasets/a-shaped/{amount}.txt')
+            
+            print(f'({i}/{(len(datasets)*len(algorithms))}) Testing {algorithm_name} key quicksort with {amount} numbers')
             time_taken = measure_time(algorithm, numbers)
             print(f'Sorted in {time_taken:.6f} seconds\n\n')
 
-            results[algorithm_name][f'{amount}k'] = time_taken
+            results[algorithm_name][amount] = time_taken
             i += 1
         
 
     test_end = time.perf_counter()
     print(f'Testing complete in {test_end - test_start:.6f} seconds\nSaving the results!')
-    save_results(results, 'fast')
+    save_results(results, 'test4')
     
-
 
 if __name__ == '__main__':
     main()

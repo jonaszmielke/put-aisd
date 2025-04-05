@@ -67,7 +67,7 @@ def main():
 
     test_end = time.perf_counter()
     print(f'Testing complete in {test_end - test_start:.6f} seconds\nSaving the results!')
-    save_results(results, 'slow')
+    save_results(results, 'test1')
     
 
 
