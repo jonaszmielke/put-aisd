@@ -5,10 +5,11 @@ import time
 
 from save_results import save_results
 
-#slow algorithms
-from algorithms.bubble_sort import bubble_sort
+#fast algoriths
 from algorithms.insertion_sort import insertion_sort
 from algorithms.selection_sort import selection_sort
+from algorithms.heap_sort import heap_sort
+from algorithms.merge_sort import merge_sort
 
 
 def read_dataset(filepath):
@@ -34,40 +35,44 @@ def measure_time(function:function, numbers:list):
 
 def main():
 
-    slow = {
-        'bubble_sort': bubble_sort,
+    algorithms = {
         'insertion_sort': insertion_sort,
-        'selection_sort': selection_sort
+        'selection_sort': selection_sort,
+        'heap_sort': heap_sort,
+        'merge_sort': merge_sort
     }
 
     results = {
-        'bubble_sort': {},
         'insertion_sort': {},
-        'selection_sort': {}
+        'selection_sort': {},
+        'heap_sort': {},
+        'merge_sort': {}
     }
 
     i = 1
-    datasets = list(range(1, 16))
+    datatypes = ["random", "ascending", "descending", "fixed", "v-shaped", "a-shaped"]
+    amount = '1m'
     test_start = time.perf_counter()
 
-    #amount of thousands numbers in dataset
-    for amount in datasets:
+    for algorithm_name, algorithm in algorithms:
 
-        numbers = read_dataset(f'datasets/random/{amount}k.txt')
+        for datatype in datatypes:
 
-        for algorithm_name, algorithm in slow:
-
-            print(f'({i}/{(len(datasets)*len(slow))}) Sorting {amount}k numbers using {algorithm_name}')
+            numbers = read_dataset(f'datasets/{datatype}/{amount}.txt')
+            
+            print(f'({i}/{(len(datatypes)*len(algorithms))}) Testing {algorithm_name} with {datatype} dataset')
             time_taken = measure_time(algorithm, numbers)
             print(f'Sorted in {time_taken:.6f} seconds\n\n')
 
-            results[algorithm_name][f'{amount}k'] = time_taken
+            results[algorithm_name][datatype] = time_taken
             i += 1
         
 
     test_end = time.perf_counter()
     print(f'Testing complete in {test_end - test_start:.6f} seconds\nSaving the results!')
-    save_results(results, 'slow')
+    
+    for algorithm_name, result in results:
+        save_results(result, f'test3/{algorithm_name}')
     
 
 

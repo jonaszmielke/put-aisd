@@ -1,4 +1,4 @@
-def quicksort(array:list, start:int, end:int):
+def quicksort_right(array:list, start:int, end:int):
     """
     param start: start position of the subarray 
     param end: end position of the subarray
@@ -8,8 +8,8 @@ def quicksort(array:list, start:int, end:int):
 
     pivot_index = partition(array, start, end)
 
-    quicksort(array, start, pivot_index - 1)
-    quicksort(array, pivot_index + 1, end)
+    quicksort_right(array, start, pivot_index - 1)
+    quicksort_right(array, pivot_index + 1, end)
 
 def partition(array:list, start:int, end:int):
     pivot = array[end]
@@ -28,5 +28,5 @@ def partition(array:list, start:int, end:int):
 if __name__ == "__main__":
 
     data = [5, 4, 1, 7, 0, 2, 3, 8]
-    quicksort(data, 0, len(data) - 1)
+    quicksort_right(data, 0, len(data) - 1)
     print(data)

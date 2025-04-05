@@ -6,7 +6,7 @@ import time
 from save_results import save_results
 
 #fast algoriths
-from algorithms.quicksort import quicksort
+from algorithms.quicksort.quicksort_right import quicksort_right as quicksort
 from algorithms.heap_sort import heap_sort
 from algorithms.merge_sort import merge_sort
 
@@ -41,27 +41,28 @@ def main():
     }
 
     results = {
-        'bubble_sort': {},
-        'insertion_sort': {},
-        'selection_sort': {}
+        'quicksort': {},
+        'heap_sort': {},
+        'merge_sort': {}
     }
 
     i = 1
     datasets = list(range(1, 16)) #CHANGE THE NUMBERS !!!!!!!!!
     test_start = time.perf_counter()
 
-    #ammount of thousands numbers in dataset
-    for ammount in datasets:
+    #amount of thousands numbers in dataset
+    for amount in datasets:
 
-        numbers = read_dataset(f'datasets/random/{ammount}k.txt')
+        numbers = read_dataset(f'datasets/random/{amount}.txt')
 
         for algorithm_name, algorithm in fast:
 
-            print(f'({i}/{(len(datasets)*len(fast))}) Sorting {ammount}k numbers using {algorithm_name}')
+            print(f'({i}/{(len(datasets)*len(fast))}) Sorting {amount} numbers using {algorithm_name}')
             time_taken = measure_time(algorithm, numbers)
             print(f'Sorted in {time_taken:.6f} seconds\n\n')
 
-            results[algorithm_name][f'{ammount}k'] = time_taken
+            results[algorithm_name][f'{amount}k'] = time_taken
+            i += 1
         
 
     test_end = time.perf_counter()

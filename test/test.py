@@ -10,7 +10,7 @@ from algorithms.insertion_sort import insertion_sort
 from algorithms.selection_sort import selection_sort
 
 #fast
-from algorithms.quicksort import quicksort
+from algorithms.quicksort.quicksort_right import quicksort
 from algorithms.heap_sort import heap_sort
 from algorithms.merge_sort import merge_sort
 
