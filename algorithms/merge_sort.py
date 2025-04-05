@@ -30,5 +30,11 @@ def merge(left, right):
     return result
 
 if __name__ == "__main__":
+    array = [5, 4, 1, 7, 0, 2, 3, 8]
+    print("Unsorted array:")
+    print(array)
 
-    merge_sort()
+    sorted_array = merge_sort(array)
+
+    print("Sorted array:")
+    print(sorted_array)
