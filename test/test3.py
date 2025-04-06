@@ -24,7 +24,7 @@ def read_dataset(filepath):
 
     return numbers
 
-def measure_time(function:function, numbers:list):
+def measure_time(function:callable, numbers:list):
 
     start_time = time.perf_counter()
     function(numbers)
@@ -51,10 +51,10 @@ def main():
 
     i = 1
     datatypes = ["random", "ascending", "descending", "fixed", "v-shaped", "a-shaped"]
-    amount = '1m'
+    amount = '1k'
     test_start = time.perf_counter()
 
-    for algorithm_name, algorithm in algorithms:
+    for algorithm_name, algorithm in algorithms.items():
 
         for datatype in datatypes:
 
@@ -71,9 +71,8 @@ def main():
     test_end = time.perf_counter()
     print(f'Testing complete in {test_end - test_start:.6f} seconds\nSaving the results!')
     
-    for algorithm_name, result in results:
-        save_results(result, f'test3/{algorithm_name}')
-    
+    save_results(results, datatypes, 'test3')
+
 
 
 if __name__ == '__main__':

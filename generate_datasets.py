@@ -56,7 +56,7 @@ def write_dataset(data, dataset_type, count_str):
 
 
 
-def generate_datasets(selected, count_str):
+def generate_datasets(selected:str, count_str:str):
 
     generators = {
         "random": generate_random,
@@ -123,4 +123,24 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+
+    choice = input('Generate predefined or custom?\np for predefined, c for custom: ')
+    if choice == 'p':
+
+        #test1 i test2
+        #random 1-15k
+        for i in range(1,16):
+            generate_datasets('random', f'{i}k')
+
+        #test3
+        #all 1k
+        generate_datasets('all', '1k')
+
+        #test4
+        #a-shaped 1m
+        generate_datasets('a-shaped', '1m')
+
+
+    elif choice == 'c':
+        main()
+    

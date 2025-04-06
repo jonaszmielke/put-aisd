@@ -23,7 +23,7 @@ def read_dataset(filepath):
 
     return numbers
 
-def measure_time(function:function, numbers:list):
+def measure_time(function:callable, numbers:list):
 
     start_time = time.perf_counter()
     function(numbers)
@@ -47,27 +47,27 @@ def main():
     }
 
     i = 1
-    datasets = list(range(1, 16))
+    datasets = [f'{i}k' for i in range(1, 16)]
     test_start = time.perf_counter()
 
     #amount of thousands numbers in dataset
     for amount in datasets:
 
-        numbers = read_dataset(f'datasets/random/{amount}k.txt')
+        for algorithm_name, algorithm in slow.items():
 
-        for algorithm_name, algorithm in slow:
-
-            print(f'({i}/{(len(datasets)*len(slow))}) Sorting {amount}k numbers using {algorithm_name}')
+            numbers = read_dataset(f'datasets/random/{amount}.txt')
+            
+            print(f'({i}/{(len(datasets)*len(slow))}) Sorting {amount} numbers using {algorithm_name}')
             time_taken = measure_time(algorithm, numbers)
             print(f'Sorted in {time_taken:.6f} seconds\n\n')
 
-            results[algorithm_name][f'{amount}k'] = time_taken
+            results[algorithm_name][f'{amount}'] = time_taken
             i += 1
         
 
     test_end = time.perf_counter()
     print(f'Testing complete in {test_end - test_start:.6f} seconds\nSaving the results!')
-    save_results(results, 'test1')
+    save_results(results, datasets, 'test1')
     
 
 

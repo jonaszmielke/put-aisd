@@ -10,7 +10,7 @@ from algorithms.quicksort.quicksort_right import quicksort_right
 from algorithms.quicksort.quicksort_middle import quicksort_middle
 from algorithms.quicksort.quicksort_random import quicksort_random
 
-
+sys.setrecursionlimit(10**6)
 
 def read_dataset(filepath):
     """
@@ -24,10 +24,10 @@ def read_dataset(filepath):
 
     return numbers
 
-def measure_time(function:function, numbers:list):
+def measure_time(function:callable, numbers:list):
 
     start_time = time.perf_counter()
-    function(numbers)
+    function(numbers, 0, len(numbers)-1)
     end_time = time.perf_counter()
 
     return end_time - start_time
@@ -48,10 +48,10 @@ def main():
     }
 
     i = 1
-    datasets = ['1m']
+    datasets = ['1k']
     test_start = time.perf_counter()
 
-    for algorithm_name, algorithm in algorithms:
+    for algorithm_name, algorithm in algorithms.items():
 
         for amount in datasets:
 
@@ -67,7 +67,7 @@ def main():
 
     test_end = time.perf_counter()
     print(f'Testing complete in {test_end - test_start:.6f} seconds\nSaving the results!')
-    save_results(results, 'test4')
+    save_results(results, datasets, 'test4')
     
 
 if __name__ == '__main__':
