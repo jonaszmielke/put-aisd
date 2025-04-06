@@ -109,14 +109,15 @@ def main():
 
     if selected.isdigit():
 
-        if selected == i:
+        if selected == f'{i}':
             selected = 'all'
 
         elif int(selected) < i:
             print('An incorrect option was selected')
             return
         
-        selected = generators[int(selected)-1]
+        else:
+            selected = generators[int(selected)-1]
 
     generate_datasets(selected, count_str)
 
