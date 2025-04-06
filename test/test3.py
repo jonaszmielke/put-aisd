@@ -51,7 +51,7 @@ def main():
 
     i = 1
     datatypes = ["random", "ascending", "descending", "fixed", "v-shaped", "a-shaped"]
-    amount = '1k'
+    amount = '30k'
     test_start = time.perf_counter()
 
     for algorithm_name, algorithm in algorithms.items():

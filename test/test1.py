@@ -47,7 +47,7 @@ def main():
     }
 
     i = 1
-    datasets = [f'{i}k' for i in range(1, 16)]
+    datasets = [f'{i}k' for i in range(10, 26)]
     test_start = time.perf_counter()
 
     #amount of thousands numbers in dataset

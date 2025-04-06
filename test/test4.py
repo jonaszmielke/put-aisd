@@ -10,7 +10,7 @@ from algorithms.quicksort.quicksort_right import quicksort_right
 from algorithms.quicksort.quicksort_middle import quicksort_middle
 from algorithms.quicksort.quicksort_random import quicksort_random
 
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10**9)
 
 def read_dataset(filepath):
     """
@@ -48,7 +48,7 @@ def main():
     }
 
     i = 1
-    datasets = ['1k']
+    datasets = ['100k']
     test_start = time.perf_counter()
 
     for algorithm_name, algorithm in algorithms.items():

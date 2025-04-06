@@ -11,6 +11,8 @@ from algorithms.heap_sort import heap_sort
 from algorithms.merge_sort import merge_sort
 
 
+sys.setrecursionlimit(10**9)
+
 def read_dataset(filepath):
     """
     Reads numbers from the given file (one number per line)
@@ -53,7 +55,7 @@ def main():
     }
 
     i = 1
-    datasets = [f'{i}k' for i in range(1, 16)] #CHANGE THE NUMBERS !!!!!!!!!
+    datasets = [f'{i}m' for i in range(1, 16)]
     test_start = time.perf_counter()
 
     #amount of thousands numbers in dataset

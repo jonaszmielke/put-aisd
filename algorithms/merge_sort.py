@@ -1,4 +1,4 @@
-def merge_sort(arr):
+def merge_sort(arr:list):
     if len(arr) <= 1:
         return arr
 
@@ -11,7 +11,7 @@ def merge_sort(arr):
     return merge(left_half, right_half)
 
 
-def merge(left, right):
+def merge(left:list, right:list):
     result = []
     i = j = 0
 
