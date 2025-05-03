@@ -105,7 +105,7 @@ def main():
     print(f"{i}) all\n")
 
     selected = input('Provide a name or a number: ')
-    count_str = input("Enter the number of elements (e.g., 10m, 100k, or 500): ").strip()
+    count_str = input("Enter the number of elements (e.g. 10m, 100k, or 500): ").strip()
 
     if selected.isdigit():
 
