@@ -1,9 +1,14 @@
-// graph_generator.cpp
 // Automatically generates connected undirected graphs on n = 100,200,…,1500
 // vertices that are both Hamiltonian and Eulerian, at 30% and 70% edge‐densities.
 // Outputs into subfolder "graphs/" as g30_<n>.txt and g70_<n>.txt.
 
 #include <bits/stdc++.h>
+/*
+Windows probalby will show an error
+bits/stdc++.h is a header exclusive to GNU Compiler Collection (GCC)
+Nonetheless compiling this program on Windows using GCC executes without an error
+And the program works as intended 
+*/
 using namespace std;
 using pii = pair<int,int>;
 
@@ -19,7 +24,7 @@ void generate_graph(int n, double p, const string &outf) {
     vector<set<int>> adj(n);
     vector<pii> edges;
 
-    // 1) Hamiltonian cycle 0–1–…–(n−1)–0
+    // 1) Hamiltonian cycle 0–1–…–(n−1)–(n)
     for (int i = 0; i < n; ++i) {
         int u = i, v = (i+1)%n;
         adj[u].insert(v);
@@ -87,7 +92,7 @@ int main() {
     for (auto &cfg : configs) {
         double p = cfg.first;
         const string &lbl = cfg.second;
-        for (int n = 8500; n <= 8500; n += 500) {
+        for (int n = 100; n <= 1500; n += 100) {
             string filename = "graphs/g" + lbl + "_" + to_string(n) + ".txt";
             cout << "Generating " << filename << "  (n=" << n
                  << ", density=" << p << ")\n";

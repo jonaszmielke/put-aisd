@@ -1,12 +1,12 @@
 """
-Algorytmy sortowania topologicznego (Kahn) w dwóch reprezentacjach.
+Topological sorting algorithms (Kahn's) in two representations.
 """
 
 def topo_sort_list(adj):
     """
-    Sortowanie topologiczne (alg. Kahn) na liście incydencji.
+    Topological sort (Kahn's algorithm) on an adjacency list.
     adj: dict {u: [v1, v2, ...]}
-    Zwraca listę wierzchołków w porządku topologicznym.
+    Returns a list of vertices in topological order.
     """
     n = len(adj)
     indeg = [0] * n
@@ -27,9 +27,9 @@ def topo_sort_list(adj):
 
 def topo_sort_matrix(mat):
     """
-    Sortowanie topologiczne (alg. Kahn) na macierzy sąsiedztwa.
-    mat: lista list, mat[u][v] == 1 => krawędź u->v.
-    Zwraca listę wierzchołków w porządku topologicznym.
+    Topological sort (Kahn's algorithm) on an adjacency matrix.
+    mat: list of lists, mat[u][v] == 1 indicates an edge u->v.
+    Returns a list of vertices in topological order.
     """
     n = len(mat)
     indeg = [0] * n
@@ -48,4 +48,3 @@ def topo_sort_matrix(mat):
                 if indeg[v] == 0:
                     queue.append(v)
     return order
-

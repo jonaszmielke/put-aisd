@@ -1,5 +1,5 @@
 datasets
-task-4/graphs
+task-4/part-1/graphs/*.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

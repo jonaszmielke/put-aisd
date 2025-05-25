@@ -1,13 +1,18 @@
-// measure.cpp
 // Reads graphs g30_n.txt and g70_n.txt for n = 100,200,…,1500 from ./graphs/
 // Measures Euler‐cycle (A) and Hamilton‐cycle (B) runtimes in nanoseconds,
-// averaging the Hamiltonian measurement over multiple runs to avoid zero readings.
-// Writes results into ./test_results/results_<label>.csv
+// averaging the Hamiltonian measurement over 200 runs to avoid zero readings.
+// Writes results into ./test_results/results_<density>.csv
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <set>
+#include <string>
+#include <chrono>
+#include <cstdlib>
 using namespace std;
 
-// --- load graph from file fn, setting n and adjacency list adj ---
+// function to load graph from file, setting n and adjacency list adj 
 void read_graph(const string &fn, int &n, vector<vector<int>> &adj) {
     ifstream in(fn);
     if (!in) {
@@ -24,7 +29,7 @@ void read_graph(const string &fn, int &n, vector<vector<int>> &adj) {
     }
 }
 
-// --- Algorithm A: Eulerian cycle (Hierholzer) ---
+// Algorithm A: Eulerian cycle (Hierholzer) 
 vector<int> euler_cycle(const vector<vector<int>> &adj) {
     int n = adj.size();
     vector<multiset<int>> G(n);
@@ -52,7 +57,7 @@ vector<int> euler_cycle(const vector<vector<int>> &adj) {
     return tour;
 }
 
-// --- helper for Hamiltonian backtracking ---
+// helper for Hamiltonian backtracking 
 bool backtrack(int v, int start,
                vector<int> &path,
                vector<bool> &used,
@@ -80,7 +85,7 @@ bool backtrack(int v, int start,
     return false;
 }
 
-// --- Algorithm B: find first Hamiltonian cycle via backtracking ---
+// Algorithm B: find first Hamiltonian cycle via backtracking 
 vector<int> ham_cycle(const vector<vector<int>> &adj) {
     int n = adj.size();
     vector<bool> used(n, false);
@@ -94,20 +99,21 @@ vector<int> ham_cycle(const vector<vector<int>> &adj) {
 }
 
 int main() {
-    // We assume ./test_results/ already exists.
+    // We assume ./test_results/ already exists
     vector<string> labels = {"30", "70"};
 
     // Number of repeats for Hamiltonian timing
     const int R = 200;
 
     for (const string &lbl : labels) {
-        string outfn = "test_results/results_" + lbl + ".csv";
+        string outfn = "../results/results_" + lbl + ".csv";
         ofstream out(outfn);
         if (!out) {
             cerr << "Error: cannot open " << outfn << " for writing\n";
             return 1;
         }
-        // CSV header: Euler once, Hamilton average over R runs
+
+        // CSV header: Euler once, Hamilton average over R (200) runs
         out << "n,t_euler_ns,t_hamilton_avg_ns\n";
 
         for (int n = 100; n <= 1500; n += 100) {
@@ -123,7 +129,7 @@ int main() {
             auto t2 = chrono::high_resolution_clock::now();
             long long durE_ns = chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count();
 
-            // Measure Hamilton cycle R times and average
+            // Measure Hamilton cycle R (200) times and average
             long long sumH_ns = 0;
             for (int i = 0; i < R; ++i) {
                 auto s = chrono::high_resolution_clock::now();
@@ -136,7 +142,7 @@ int main() {
             // Write to CSV
             out << n << "," << durE_ns << "," << avgH_ns << "\n";
 
-            // Console log
+            // Console log the times
             cout << "Measured n=" << n << " (" << lbl << "%): "
                  << durE_ns << " ns, avg " << avgH_ns << " ns\n";
         }

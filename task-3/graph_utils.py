@@ -1,13 +1,15 @@
-"""
-Moduł z funkcjami do generowania grafu i konwersji reprezentacji.
-"""
 import random
 
-#part 1
+"""
+Module with functions for graph generation and representation conversion.
+"""
+
+# Part 1
+
 def generate_dag(n, density=0.6):
     """
-    Generuje losowy DAG na n wierzchołkach o zadanym nasyceniu krawędziami.
-    Zwraca listę krawędzi (u,v) z u < v.
+    Generates a random DAG on n vertices with a given edge density.
+    Returns a list of edges (u, v) with u < v.
     """
     max_edges = n * (n - 1) // 2
     m = int(density * max_edges)
@@ -17,8 +19,8 @@ def generate_dag(n, density=0.6):
 
 def to_adj_list(n, edges):
     """
-    Konwersja listy krawędzi do listy incydencji.
-    Zwraca dict: {vertex: [neighbors...]}
+    Converts an edge list to an adjacency list.
+    Returns a dict: {vertex: [neighbors...]}
     """
     adj = {i: [] for i in range(n)}
     for u, v in edges:
@@ -28,26 +30,26 @@ def to_adj_list(n, edges):
 
 def to_adj_matrix(n, edges):
     """
-    Konwersja listy krawędzi do macierzy sąsiedztwa.
-    Zwraca listę list rozmiaru n×n, 1 jeśli krawędź istnieje.
+    Converts an edge list to an adjacency matrix.
+    Returns an n x n list of lists, with 1 if the edge exists.
     """
     mat = [[0] * n for _ in range(n)]
     for u, v in edges:
         mat[u][v] = 1
     return mat
 
+# Part 2
 
-#part 2
 def generate_undirected_graph(n, density=0.3, weight_range=(1, 1000)):
     """
-    Generuje losowy graf nieskierowany ważony na n wierzchołkach o zadanym nasyceniu krawędziami.
-    density: stosunek liczby krawędzi do maksymalnej możliwej: n(n-1)/2.
-    weight_range: przedział wag krawędzi (inclusive).
-    Zwraca listę krawędzi: [(u,v,w), ...], u < v.
+    Generates a random undirected weighted graph on n vertices with a given edge density.
+    density: ratio of the number of edges to the maximum possible: n(n-1)/2.
+    weight_range: range of edge weights (inclusive).
+    Returns a list of edges: [(u, v, w), ...], u < v.
     """
     max_edges = n * (n - 1) // 2
     m = int(density * max_edges)
-    # Wygeneruj wszystkie możliwe nieukierunkowane pary u<v
+    # Generate all possible undirected pairs u < v
     all_pairs = [(u, v) for u in range(n) for v in range(u + 1, n)]
     chosen = random.sample(all_pairs, m)
     edges = []
@@ -60,8 +62,8 @@ def generate_undirected_graph(n, density=0.3, weight_range=(1, 1000)):
 
 def to_adj_list_undirected(n, edges):
     """
-    Konwersja listy krawędzi nieskierowanych [(u,v,w),...] do listy incydencji.
-    Zwraca dict: {vertex: [(neighbor, weight), ...]}
+    Converts an undirected edge list [(u, v, w), ...] to an adjacency list.
+    Returns a dict: {vertex: [(neighbor, weight), ...]}
     """
     adj = {i: [] for i in range(n)}
     for u, v, w in edges:
@@ -72,8 +74,8 @@ def to_adj_list_undirected(n, edges):
 
 def to_adj_matrix_undirected(n, edges):
     """
-    Konwersja listy krawędzi nieskierowanych do macierzy sąsiedztwa.
-    Zwraca listę list n x n z wagami lub 0 gdy krawędzi brak.
+    Converts an undirected edge list to an adjacency matrix.
+    Returns an n x n list of lists with weights, or 0 where there is no edge.
     """
     mat = [[0] * n for _ in range(n)]
     for u, v, w in edges:
