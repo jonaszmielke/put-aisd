@@ -5,7 +5,6 @@ Topological sorting algorithms (Kahn's) in two representations.
 def topo_sort_list(adj):
     """
     Topological sort (Kahn's algorithm) on an adjacency list.
-    adj: dict {u: [v1, v2, ...]}
     Returns a list of vertices in topological order.
     """
     n = len(adj)
@@ -28,7 +27,6 @@ def topo_sort_list(adj):
 def topo_sort_matrix(mat):
     """
     Topological sort (Kahn's algorithm) on an adjacency matrix.
-    mat: list of lists, mat[u][v] == 1 indicates an edge u->v.
     Returns a list of vertices in topological order.
     """
     n = len(mat)
