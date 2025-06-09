@@ -63,7 +63,7 @@ def dynamic(capacity: int, containers: list[dict]):
             remaining_capacity -= container['weight']
 
     loaded_containers.reverse()
-    return value, loaded_containers, dp
+    return value, loaded_containers
 
 
 if __name__ == '__main__':
